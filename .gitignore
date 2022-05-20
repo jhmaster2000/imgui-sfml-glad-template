@@ -2,4 +2,4 @@
 *.ini
 *.cmd
 *.log
-*.txt
+/log.*
