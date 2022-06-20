@@ -85,6 +85,9 @@
         "deque": "cpp",
         "set": "cpp",
         "filesystem": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "cstdarg": "cpp",
+        "random": "cpp",
+        "numbers": "cpp"
     },
 }

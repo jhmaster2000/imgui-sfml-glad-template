@@ -6,20 +6,21 @@
 #include <imgui-sfml/imgui-SFML.h>
 #include "imgui-style.h"
 
-#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include <iostream>
+#include "actormgr.h"
+#include "actors/firebar.h"
 #include "log.h"
 
 int main() {
     Logger::init(plog::verbose);
     LOGN << "Initialized.";
 
-    sf::RenderWindow window(sf::VideoMode(1080, 720), "ImGui SFML", sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close);
-    window.setVerticalSyncEnabled(true);
+    sf::RenderWindow window(sf::VideoMode(1080, 1080), "ImGui SFML", sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close);
+    //window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(60);
     ImGui::SFML::Init(window, false);
 
     ImGuiIO& IO = ImGui::GetIO();
@@ -27,9 +28,8 @@ int main() {
     ImGui::SFML::UpdateFontTexture();
     setImGuiStyle();
 
-    sf::CircleShape shape(100.0f);
-    shape.setFillColor(sf::Color::Green);
-    shape.setPosition(100.0f, 100.0f);
+    FireBar firebar(8, 3, 25.0f);
+    firebar.setPosition(540.0f, 540.0f);
 
     sf::Clock deltaClock;
     while (window.isOpen()) {
@@ -46,15 +46,15 @@ int main() {
         }
 
         ImGui::SFML::Update(window, deltaClock.restart());
-
-        ImGui::ShowDemoWindow();
+        //ImGui::ShowDemoWindow();
 
         ImGui::Begin("Hello, world!");
         ImGui::Button("Look at this pretty button");
         ImGui::End();
 
         window.clear();
-        window.draw(shape);
+        ActorMgr::instance()->drawActors(window);
+        ActorMgr::instance()->executeActors();
         ImGui::SFML::Render(window);
         window.display();
     }

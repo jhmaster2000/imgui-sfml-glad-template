@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(imgui-sfml)
 
-# for filesystem functionality from C++17
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 
 find_package(OpenGL REQUIRED)
 
@@ -27,6 +26,8 @@ file(WRITE include/imgui/imconfig.h "${imconfig}")
 # your sources
 set(sources
     src/new.cpp
+    src/staticinit.cpp
+    src/baseactor.cpp
     src/main.cpp
     include/imgui/imconfig.h
     include/imgui/imgui.cpp
