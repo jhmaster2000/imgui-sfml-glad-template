@@ -28,7 +28,7 @@ int main() {
     ImGui::SFML::UpdateFontTexture();
     setImGuiStyle();
 
-    FireBar firebar(8, 3, 25.0f);
+    FireBar firebar(8, 5, -0.5f, 40.0f, true);
     firebar.setPosition(540.0f, 540.0f);
 
     sf::Clock deltaClock;
