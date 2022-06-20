@@ -18,7 +18,8 @@ int main() {
     Logger::init(plog::verbose);
     LOGN << "Initialized.";
 
-    sf::RenderWindow window(sf::VideoMode(1080, 1080), "ImGui SFML", sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close);
+    const std::string windowTitle = "ImGui SFML";
+    sf::RenderWindow window(sf::VideoMode(1080, 1080), windowTitle, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close);
     //window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
     ImGui::SFML::Init(window, false);
@@ -45,11 +46,13 @@ int main() {
             if (event.type == sf::Event::Closed) window.close();
         }
 
+        float fps = 1.0f / deltaClock.getElapsedTime().asSeconds();
+        window.setTitle(windowTitle + " | FPS: " + std::to_string((int)floor(fps)));
         ImGui::SFML::Update(window, deltaClock.restart());
         //ImGui::ShowDemoWindow();
 
         ImGui::Begin("Hello, world!");
-        ImGui::Button("Look at this pretty button");
+        ImGui::Button("Click Me");
         ImGui::End();
 
         window.clear();
